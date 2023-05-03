@@ -10,7 +10,7 @@ function Show({ bread }) {
                 and it {
                     bread.hasGluten ? <span> does </span> : <span> does not </span>
                 } 
-                have glutten
+                have gluten
             </p>
             <li>
                 <a href={'/breads'}> Go home</a>
