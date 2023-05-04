@@ -1,4 +1,5 @@
 const express = require('express')
+const methodOverride= require('method-override')
 require('dotenv').config()
 const breadController = require('./controllers/bread')
 
@@ -6,6 +7,7 @@ const app = express()
 //middleware
 app.use(express.static('public'))
 app.use(express.urlencoded({ extendeed: true }))
+app.use(methodOverride('_method'))
 app.set('views', __dirname + '/views')
 app.set('view engine', 'jsx')
 app.engine('jsx', require('express-react-views').createEngine())
