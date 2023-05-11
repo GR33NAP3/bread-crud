@@ -24,12 +24,11 @@ router.get('/:id', async (req,res) => {
     })
 })
 
-router.get('/:index/edit', (req,res) => {
-    const { index }= req.params
-
+router.get('/:id/edit', async (req,res) => {
+    const { id }= req.params
+    const bread = await Bread.findById(id)
     res.render('edit', {
-        bread: Bread[index],
-        index: index
+        bread
     })
 })
 
@@ -46,17 +45,19 @@ router.post('/', async (req,res) => {
     res.status(303).redirect('/breads')
 })
 
-router.delete('/:index',(req,res) => {
-    const { index } = req.params
-    Bread.splice(index,1)
+// DELETE pathway
+router.delete('/:id', async (req,res) => {
+    const { id } = req.params
+    await Bread.findByIdAndDelete(id)
     res.status(303).redirect('/breads')
 })
 
 //put is whole update/ patch is for part for updates
-router.put('/:index',(req,res) => {
-    const { index } = req.params
+router.put('/:id', async (req,res) => {
+    const { id } = req.params
 
     // if(!req.body.image) req.body.image = 'https://thumbs.dreamstime.com/b/bread-cut-14027607.jpg'
+    if(!req.body.image) req.body.image = undefined
 
     if (req.body.hasGluten === 'on'){
         req.body.hasGluten = true
@@ -64,8 +65,8 @@ router.put('/:index',(req,res) => {
         req.body.hasGluten = false
     }
 
-    Bread[index] = req.body
-    res.status(303).redirect(`/breads/${index}`)
+    await Bread.findByIdAndUpdate(id, req.body)
+    res.status(303).redirect(`/breads/${id}`)
 })
 
 module.exports = router
