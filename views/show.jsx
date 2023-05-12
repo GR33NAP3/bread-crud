@@ -12,6 +12,7 @@ function Show({ bread }) {
                 } 
                 have gluten
             </p>
+            <p>{bread.getBakedBy()}</p>
             <li>
                 <a href={'/breads'}><button>Go home</button></a>
             </li>
