@@ -1,6 +1,12 @@
 const router = require('express').Router()
 const Baker = require('../models/baker')
 
+router.get('/', async(req, res) => {
+    const bakers= await Baker.find().populate('breads')
+    res.json(bakers)
+    
+})
+
 router.get('/data/seed', async (req,res) => {
     const data =  [
         {
