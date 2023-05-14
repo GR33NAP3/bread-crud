@@ -5,8 +5,10 @@ const Baker = require('../models/baker')
 // GET all the bread
 router.get('/', async (req,res) => {
     const bread = await Bread.find()
+    const bakers = await Baker.find()
     res.render('index', {
-        breads: bread
+        breads: bread,
+        bakers
     })
 })
 

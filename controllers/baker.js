@@ -4,7 +4,15 @@ const Baker = require('../models/baker')
 router.get('/', async(req, res) => {
     const bakers= await Baker.find().populate('breads')
     res.json(bakers)
-    
+
+})
+
+router.get('/:id', async (req,res)=> {
+    const { id } = req.params
+    const baker= await Baker.findById(id).populate('breads')
+    res.render('bakerShow', {
+        baker
+    })
 })
 
 router.get('/data/seed', async (req,res) => {
