@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Bread = require('./bread')
 
 const bakerSchema = new mongoose.Schema({
     name: {
@@ -14,8 +15,13 @@ const bakerSchema = new mongoose.Schema({
         type: String,
         required: false
     }
-},{
+},
+{
     toJSON: { virtuals: true }
+})
+
+bakerSchema.post('findOneAndDelete', async function() {
+    await Bread.deleteMany({ baker: this._conditions._id })
 })
 
 bakerSchema.virtual('breads',{
